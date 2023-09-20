@@ -76,9 +76,14 @@
     /********************************/
     @media (max-width: 991px) {
 
-      .kr-nav-menu,
+      .kr-nav-menu {
+        background-color: beige;
+        border: red 0.125rem solid;
+      }
+
       .kr-nav-sub-menu {
-        background-color: antiquewhite;
+        background-color: rgba(0, 144, 0, 0.125);
+        padding-left: 4rem;
       }
 
       .kr-nav-menu {
@@ -88,7 +93,7 @@
 
       .kr-nav-sub-menu,
       .kr-nav-menu>.kr-dropdown>.kr-nav-sub-menu {
-        position: relative;
+        position: static;
         top: unset;
         left: unset;
       }
@@ -97,6 +102,10 @@
         content: url('icons/chevron-down.svg');
         height: 2rem;
         width: 100%;
+      }
+
+      .kr-nav-menu>.kr-nav-item {
+        height: auto;
       }
 
       .kr-nav-menu .kr-nav-item:not(:last-child) {
@@ -129,6 +138,8 @@
                   <li class="kr-nav-item"><a class="kr-nav-lnk" href="#" role="button">Link 3-3-3-2</a></li>
                 </ul>
               </li>
+              <li class="kr-nav-item"><a class="kr-nav-lnk" href="#" role="button">Link 3-3-4</a></li>
+              <li class="kr-nav-item"><a class="kr-nav-lnk" href="#" role="button">Link 3-3-5</a></li>
             </ul>
           </li>
           <li class="kr-nav-item"><a class="kr-nav-lnk" href="#" role="button">Link 3-4</a></li>
