@@ -86,6 +86,12 @@
         padding-left: 4rem;
       }
 
+      .kr-nav-sub-menu,
+      .kr-dropdown:hover>.kr-nav-sub-menu {
+        display: none;
+      }
+
+
       .kr-nav-menu {
         flex-direction: column;
         gap: 0;
@@ -111,6 +117,24 @@
       .kr-nav-menu .kr-nav-item:not(:last-child) {
         border-bottom: #c9c9c9 0.125rem solid;
       }
+
+      .kr-nav-item-div {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .kr-nav-item-div>.kr-dropdwon-btn {
+        border: 0;
+        border-radius: 0;
+        border-left: 0.125rem #c9c9c9 solid;
+        padding: 0 1rem;
+      }
+
+      .kr-nav-item-div>.kr-dropdwon-btn>span {
+        display: block;
+        transition: all 0.3s ease;
+        transform: none;
+      }
     }
   </style>
 </head>
@@ -122,17 +146,32 @@
       <li class="kr-nav-item"><a class="kr-nav-lnk" href="#" role="button">Link 1</a></li>
       <li class="kr-nav-item"><a class="kr-nav-lnk" href="#" role="button">Link 2</a></li>
       <li class="kr-nav-item kr-dropdown">
-        <a class="kr-nav-lnk" href="#" role="button">Link 3 Sub Menu</a>
+        <div class="kr-nav-item-div">
+          <a class="kr-nav-lnk" href="#" role="button">Link 3 Sub Menu</a>
+          <button class="btn kr-dropdwon-btn d-md-block d-lg-none">
+            <span class="bi bi-chevron-down"></span>
+          </button>
+        </div>
         <ul class="kr-nav-sub-menu">
           <li class="kr-nav-item"><a class="kr-nav-lnk" href="#" role="button">Link 3-1</a></li>
           <li class="kr-nav-item"><a class="kr-nav-lnk" href="#" role="button">Link 3-2</a></li>
           <li class="kr-nav-item kr-dropdown">
-            <a class="kr-nav-lnk" href="#" role="button">Link 3-3 Sub Menu</a>
+            <div class="kr-nav-item-div">
+              <a class="kr-nav-lnk" href="#" role="button">Link 3-3 Sub Menu</a>
+              <button class="btn kr-dropdwon-btn  d-md-block d-lg-none">
+                <span class="bi bi-chevron-down"></span>
+              </button>
+            </div>
             <ul class="kr-nav-sub-menu">
               <li class="kr-nav-item"><a class="kr-nav-lnk" href="#" role="button">Link 3-3-1</a></li>
               <li class="kr-nav-item"><a class="kr-nav-lnk" href="#" role="button">Link 3-3-2</a></li>
               <li class="kr-nav-item kr-dropdown">
-                <a class="kr-nav-lnk" href="#" role="button">Link 3-3-3 Sub Menu</a>
+                <div class="kr-nav-item-div">
+                  <a class="kr-nav-lnk" href="#" role="button">Link 3-3-3 Sub Menu</a>
+                  <button class="btn kr-dropdwon-btn  d-md-block d-lg-none">
+                    <span class="bi bi-chevron-down"></span>
+                  </button>
+                </div>
                 <ul class="kr-nav-sub-menu">
                   <li class="kr-nav-item"><a class="kr-nav-lnk" href="#" role="button">Link 3-3-3-1</a></li>
                   <li class="kr-nav-item"><a class="kr-nav-lnk" href="#" role="button">Link 3-3-3-2</a></li>
@@ -148,6 +187,87 @@
       <li class="kr-nav-item"><a class="kr-nav-lnk" href="#" role="button">Link 4</a></li>
     </ul>
   </div>
+
+  <script>
+    window.onload = function () {
+      // Your JavaScript code here
+
+      // Get all buttons with the "btn-x" class
+      const buttons = document.querySelectorAll('.kr-dropdwon-btn');
+
+      // Add a click event listener to each button
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Find the corresponding dropdown element (next sibling)
+          // const dropdown = button.nextElementSibling;
+          const krDropdownClass = findParentWithClass(button, 'kr-dropdown');
+          const subMenuUl = krDropdownClass.querySelector('.kr-nav-sub-menu');
+          const chevron = button.getElementsByTagName('span')[0];
+
+          if (subMenuUl.style.display === 'none' || subMenuUl.style.display === '') {
+            subMenuUl.style.display = 'block';
+            chevron.style.transform = 'rotate(-180deg)';
+          } else {
+            subMenuUl.style.display = 'none';
+            chevron.style.transform = 'revert';
+          }
+
+        });
+      });
+
+      function findParentWithClass(element, className) {
+        let parent = element.parentElement;
+
+        while (parent) {
+          if (parent.classList.contains(className)) {
+            return parent;
+          }
+          parent = parent.parentElement;
+        }
+
+        return null; // Return null if no parent with the specified class is found
+      }
+
+
+      function findElementWithClass(containerClassName, targetClassName) {
+        const container = document.querySelector('.' + containerClassName);
+
+        if (container) {
+          const elementsWithClass = container.getElementsByClassName(targetClassName);
+
+          if (elementsWithClass.length > 0) {
+            // Return the first element with the specified class found within the container
+            return elementsWithClass[0];
+          }
+        }
+
+        return null; // Return null if no such element is found
+      }
+
+      document.addEventListener('click', function (event) {
+        // Check if the clicked element or any of its ancestors have the 'nav-menu' class
+        let isNavMenuClicked = event.target.closest('.kr-nav-menu');
+
+        if (!isNavMenuClicked) {
+          // The click is outside the 'nav-menu' element, so execute your function here
+          let submenus = document.querySelectorAll('.kr-nav-sub-menu');
+          submenus.forEach(subMenu => {
+            subMenu.style.display = 'none';
+          });
+
+          const buttons = document.querySelectorAll('.kr-dropdwon-btn');
+          buttons.forEach(button => {
+            const chevron = button.getElementsByTagName('span')[0];
+            chevron.style.transform = 'none';
+          });
+        }
+      });
+      
+    }
+
+  </script>
+
+
 </body>
 
 </html>
