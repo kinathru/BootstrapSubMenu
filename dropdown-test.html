@@ -26,6 +26,13 @@
   <!-- <script src="script.js" type="text/javascript"></script> -->
 
   <style>
+
+    /*    General Styles    */
+    .rotate-180{
+      transform: rotate(180deg);
+    }
+
+    /*    Nav Menu Styles   */
     .kr-nav-menu,
     .kr-nav-sub-menu {
       list-style: none;
@@ -68,6 +75,7 @@
       padding: 1rem 1rem;
       white-space: nowrap;
     }
+
 
     /* Responsive Styles */
     /********************************/
@@ -204,13 +212,8 @@
           const subMenuUl = krDropdownClass.querySelector('.kr-nav-sub-menu');
           const chevron = button.getElementsByTagName('span')[0];
 
-          if (subMenuUl.style.display === 'none' || subMenuUl.style.display === '') {
-            subMenuUl.style.display = 'block';
-            chevron.style.transform = 'rotate(-180deg)';
-          } else {
-            subMenuUl.style.display = 'none';
-            chevron.style.transform = 'revert';
-          }
+          subMenuUl.classList.toggle('d-block');
+          chevron.classList.toggle('rotate-180');
 
         });
       });
@@ -252,17 +255,17 @@
           // The click is outside the 'nav-menu' element, so execute your function here
           let submenus = document.querySelectorAll('.kr-nav-sub-menu');
           submenus.forEach(subMenu => {
-            subMenu.style.display = 'none';
+            subMenu.classList.remove('d-block');
           });
 
           const buttons = document.querySelectorAll('.kr-dropdwon-btn');
           buttons.forEach(button => {
             const chevron = button.getElementsByTagName('span')[0];
-            chevron.style.transform = 'none';
+            chevron.classList.remove('rotate-180');
           });
         }
       });
-      
+
     }
 
   </script>
