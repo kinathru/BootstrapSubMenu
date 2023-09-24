@@ -137,11 +137,11 @@
 
       .kr-nav-menu {
         /* background-color: beige; */
-        border: red 0.125rem solid;
+        /* border: red 0.125rem solid; */
       }
 
       .kr-nav-sub-menu {
-        padding-left: 2rem;
+        box-shadow: none;
       }
 
       .kr-nav-sub-menu,
@@ -163,6 +163,21 @@
         left: unset;
       }
 
+      .kr-nav-sub-menu .kr-nav-lnk
+      {
+        padding-left: 5rem;
+      }
+
+      .kr-nav-sub-menu .kr-nav-sub-menu .kr-nav-lnk
+      {
+        padding-left: 7rem;
+      }
+
+      .kr-nav-sub-menu .kr-nav-sub-menu .kr-nav-sub-menu .kr-nav-lnk
+      {
+        padding-left: 9rem;
+      }
+
       .kr-dropdown .kr-nav-item-div .kr-nav-lnk::after,
       .kr-dropdown .kr-nav-sub-menu .kr-nav-item-div .kr-nav-lnk::after {
         display: static;
@@ -179,8 +194,13 @@
         height: auto;
       }
 
-      .kr-nav-menu .kr-nav-item:not(:last-child) {
-        border-bottom: #c9c9c9 0.125rem solid;
+      .kr-nav-item-div,
+      .kr-nav-menu .kr-nav-item:not(.kr-dropdown) {
+        border-bottom: #fff 0.125rem solid;
+      }
+
+      .kr-nav-menu>.kr-nav-item:last-child{
+        border-bottom: none;
       }
 
       .kr-nav-item-div {
@@ -188,17 +208,17 @@
         justify-content: space-between;
       }
 
-      .kr-nav-item-div>.kr-dropdwon-btn {
+      .kr-nav-item-div>.kr-dropdwon-btn,
+      .kr-nav-item-div>.kr-dropdwon-btn:active {
         border: 0;
         border-radius: 0;
-        border-left: 0.125rem #c9c9c9 solid;
+        border-left: 0.125rem #fff solid;
         padding: 0 1rem;
       }
 
       .kr-nav-item-div>.kr-dropdwon-btn>span {
         display: block;
         transition: all 0.3s ease;
-        transform: none;
       }
     }
   </style>
